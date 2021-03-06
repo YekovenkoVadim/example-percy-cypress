@@ -1,1 +1,7 @@
-{ "video": false }
+{
+    "baseUrl": "http://www.webdriveruniversity.com/",
+    "viewportHeight": 1080,
+    "viewportWidth": 1920,
+    "video": true,
+    "projectId": "gndxgg"
+}

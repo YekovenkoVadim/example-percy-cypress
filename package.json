@@ -1,18 +1,28 @@
 {
-  "private": true,
-  "scripts": {
-    "test": "percy exec -- node ./run-tests.js"
-  },
-  "engines": {
-    "node": ">=8.0.0"
-  },
-  "dependencies": {
-    "todomvc-app-css": "^2.3.0",
-    "todomvc-common": "^1.0.2"
-  },
-  "devDependencies": {
-    "@percy/cypress": "^2.3.4",
-    "cypress": "^5.6.0",
-    "http-server": "^0.12.3"
-  }
+    "private": true,
+    "scripts": {
+        "test": "percy exec -- node ./run-tests.js",
+        "cy:oneTestRun": "npx cypress run --spec 'cypress/integration/firstTest_spec.js'",
+        "cy:percyToken": "set PERCY_TOKEN=db2a73ff697e500f1a4aeef89a82fa865f0fa44afef6c505487881b58ea24307",
+        "cy:runVisualTest": "npm run cy:percyToken && npx percy exec -- cypress run --spec 'cypress/integration/firstTest_spec.js'",
+        "cy:runVisualTestAndCyDashboard": "npm run cy:percyToken && npx percy exec -- cypress run --spec 'cypress/integration/firstTest_spec.js' --headless --record --key 3ba54c3c-5551-4750-b477-b60e0e97e630",
+        "cy:run_spec": "npx cypress run --spec 'cypress/integration/firstTest_spec.js' --headless --record --key 3ba54c3c-5551-4750-b477-b60e0e97e630 --parallel",
+        "cy:runVisualTestInChrome": "npm run cy:run_spec -- --browser chrome",
+        "cy:runVisualTestInFireFox": "npm run cy:run_spec -- --browser firefox",
+        "cy:runCrossBrowserTesting": "npm run cy:run_spec -- --browser chrome & npm run cy:run_spec -- --browser firefox",
+        "cy:runCrossBrowserTestingInGroups": "npm run cy:run_spec -- --browser firefox --group FireFox --ci-build-id $ID & npm run cy:run_spec -- --browser chrome --group Chrome --ci-build-id $ID",
+        "cy:runGroups":"ID=$(uuid) npm run cy:runCrossBrowserTestingInGroups"
+    },
+    "engines": {
+        "node": ">=8.0.0"
+    },
+    "dependencies": {
+        "todomvc-app-css": "^2.3.0",
+        "todomvc-common": "^1.0.2"
+    },
+    "devDependencies": {
+        "@percy/cypress": "^2.3.4",
+        "cypress": "^5.6.0",
+        "http-server": "^0.12.3"
+    }
 }
