@@ -1,29 +1,31 @@
 pipline {
 
-        agent any
+                    agent any
 
-        tools {nodejs "node"}
+                    tools {nodejs "node"}
 
-    stages {
-        stage('cypress parallel tests') {
+                stages {    
+                    stage('cypress parallel tests') {
 
-            parallel {
-                stage('tester A') {
-                    steps {
-                        sh "npm run cy:runGroups"
-                    }
-                }
+                        parallel {
+                            stage('tester A') {
+                                steps {
+                                    sh "npm run cy:runGroups"
+                                }
+                            }
 
-        stage('cypress parallel tests') {
+                    stage('cypress parallel tests') {
 
-            parallel {
-                stage('tester A') {
-                    steps {
-                        sh "npm run cy:runGroups"
+                        parallel {
+                            stage('tester A') {
+                                steps {
+                                    sh "npm run cy:runGroups"
+                            }
+                        }
                     }
                 }
             }
         }
     }
-
 }
+
