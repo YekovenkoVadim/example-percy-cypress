@@ -2,16 +2,20 @@
     "private": true,
     "scripts": {
         "test": "percy exec -- node ./run-tests.js",
-        "cy:oneTestRun": "npx cypress run --spec 'cypress/integration/firstTest_spec.js'",
+        "cypress:report": "generate-mochawesome-report",
+        "cy:oneTestRun": "npx cypress run --spec 'cypress/integration/functionalTest_spec.js'",
+        "cy:runFunctionalTest": "npx cypress run --spec 'cypress/integration/functionalTests_spec.js' & npm run cypress:report",
+        "cy:runFunctionalTestAndCyDashboard": "npx cypress run --spec 'cypress/integration/functionalTests_spec.js' --headless --record --key 3ba54c3c-5551-4750-b477-b60e0e97e630 & npm run cypress:report",
         "cy:percyToken": "set PERCY_TOKEN=db2a73ff697e500f1a4aeef89a82fa865f0fa44afef6c505487881b58ea24307",
-        "cy:runVisualTest": "npm run cy:percyToken && npx percy exec -- cypress run --spec 'cypress/integration/firstTest_spec.js'",
-        "cy:runVisualTestAndCyDashboard": "npm run cy:percyToken && npx percy exec -- cypress run --spec 'cypress/integration/firstTest_spec.js' --headless --record --key 3ba54c3c-5551-4750-b477-b60e0e97e630",
-        "cy:run_spec": "npx cypress run --spec 'cypress/integration/firstTest_spec.js' --headless --record --key 3ba54c3c-5551-4750-b477-b60e0e97e630 --parallel",
-        "cy:runVisualTestInChrome": "npm run cy:run_spec -- --browser chrome",
-        "cy:runVisualTestInFireFox": "npm run cy:run_spec -- --browser firefox",
-        "cy:runCrossBrowserTesting": "npm run cy:run_spec -- --browser chrome & npm run cy:run_spec -- --browser firefox",
+        "cy:runVisualTest": "npm run cy:percyToken && npx percy exec -- cypress run --spec 'cypress/integration/visualTests_spec.js'",
+        "cy:runVisualTestAndCyDashboard": "npm run cy:percyToken && npx percy exec -- cypress run --spec 'cypress/integration/visualTests_spec.js' & npm run cypress:report",
+        "cy:run": "npx cypress run --spec 'cypress/integration/functionalTest_spec.js' --headless --record --key 3ba54c3c-5551-4750-b477-b60e0e97e630",
+        "cy:run_spec": "npx cypress run --spec 'cypress/integration/functionalTest_spec.js' --headless --record --key 3ba54c3c-5551-4750-b477-b60e0e97e630",
+        "cy:runTestsInChrome": "npm run cy:run_spec -- --browser chrome; npm run junit:merge; npm run cypress:report",
+        "cy:runTestsInFireFox": "npm run cy:run_spec -- --browser firefox",
+        "cy:runCrossBrowserTesting": "npm run cy:run_spec -- --browser chrome & npm run cy:run_spec -- --browser firefox --headless --record --key 3ba54c3c-5551-4750-b477-b60e0e97e630",
         "cy:runCrossBrowserTestingInGroups": "npm run cy:run_spec -- --browser firefox --group FireFox --ci-build-id $ID & npm run cy:run_spec -- --browser chrome --group Chrome --ci-build-id $ID",
-        "cy:runGroups":"ID=$(uuid) npm run cy:runCrossBrowserTestingInGroups"
+        "cy:runGroups": "ID=$(uuid) npm run cy:runCrossBrowserTestingInGroups"
     },
     "engines": {
         "node": ">=8.0.0"
@@ -22,7 +26,15 @@
     },
     "devDependencies": {
         "@percy/cypress": "^2.3.4",
-        "cypress": "^5.6.0",
-        "http-server": "^0.12.3"
+        "cypress": "^6.6.0",
+        "cypress-mochawesome-reporter": "^1.3.0",
+        "cypress-multi-reporters": "^1.4.0",
+        "http-server": "^0.12.3",
+        "junit-merge": "^2.0.0",
+        "mocha": "^8.3.1",
+        "mocha-junit-reporter": "^2.0.0",
+        "mochawesome": "^6.2.2",
+        "mochawesome-merge": "^4.2.0",
+        "mochawesome-report-generator": "^5.2.0"
     }
 }
