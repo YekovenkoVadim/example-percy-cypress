@@ -9,7 +9,24 @@ describe('Functional tests', function () {
         cy.visit('/');
     });
 
+    it('Test #1. Check window and title', () => {
+        cy.document().should('have.property', 'charset').and('eq', 'UTF-8');
+        cy.title().should('contain', 'WebDriverUniversity.com');
+        cy.percySnapshot('page title');
+    });
+
     it('Test #11. Check window and title', () => {
+        cy.document().should('have.property', 'charset').and('eq', 'UTF-8');
+        cy.title().should('contain', 'WebDriverUniversity.com');
+        cy.percySnapshot('page title');
+    });
+    it('Test #111. Check window and title', () => {
+        cy.document().should('have.property', 'charset').and('eq', 'UTF-8');
+        cy.title().should('contain', 'WebDriverUniversity.com');
+        cy.percySnapshot('page title');
+    });
+
+    it('Test #1111. Check window and title', () => {
         cy.document().should('have.property', 'charset').and('eq', 'UTF-8');
         cy.title().should('contain', 'WebDriverUniversity.com');
         cy.percySnapshot('page title');

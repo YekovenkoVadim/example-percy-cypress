@@ -3,9 +3,9 @@
     "scripts": {
         "test": "percy exec -- node ./run-tests.js",
         "cypress:report": "generate-mochawesome-report",
-        "cy:oneTestRun": "npx cypress run --spec 'cypress/integration/functionalTest_spec.js'",
+        "cy:oneTestRun": "npx cypress run --spec 'cypress/integration/functionalTests_spec.js'",
         "cy:runFunctionalTest": "npx cypress run --spec 'cypress/integration/functionalTests_spec.js' & npm run cypress:report",
-        "cy:runFunctionalTestAndCyDashboard": "npx cypress run --spec 'cypress/integration/functionalTests_spec.js' --headless --record --key 3ba54c3c-5551-4750-b477-b60e0e97e630 & npm run cypress:report",
+        "cy:runFunctionalTestAndCyDashboard": "npx cypress run --spec 'cypress/integration/functionalTests_spec.js' --headless --record --key 3ba54c3c-5551-4750-b477-b60e0e97e630 & npm run cypress:report --parallel",
         "cy:percyToken": "set PERCY_TOKEN=db2a73ff697e500f1a4aeef89a82fa865f0fa44afef6c505487881b58ea24307",
         "cy:runVisualTest": "npm run cy:percyToken && npx percy exec -- cypress run --spec 'cypress/integration/visualTests_spec.js'",
         "cy:runVisualTestAndCyDashboard": "npm run cy:percyToken && npx percy exec -- cypress run --spec 'cypress/integration/visualTests_spec.js' & npm run cypress:report",

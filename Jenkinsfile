@@ -1,31 +1,36 @@
 pipline {
-
-                    agent any
-
-                    tools {nodejs "node"}
-
+            agent any
+                tools {nodejs 'node'}
                 stages {    
                     stage('cypress parallel tests') {
-
                         parallel {
-                            stage('tester A') {
+                            stage('Slave Node1') {
+                                agent {
+                                    label 'remote_node1'
+                                }
                                 steps {
-                                    sh "npm run cy:runGroups"
+                                    git url: 'https://github.com/YekovenkoVadim/example-percy-cypress.git'
+                                    bat 'npm install'
+                                    bat 'npm update'
+                                    bat "npm run cy:runFunctionalTestAndCyDashboard"
                                 }
                             }
-
-                    stage('cypress parallel tests') {
-
-                        parallel {
-                            stage('tester A') {
+                            stage('Slave Node2') {
+                                agent {
+                                    label 'remote_node2'
+                                }
                                 steps {
-                                    sh "npm run cy:runGroups"
+                                    git url: 'https://github.com/YekovenkoVadim/example-percy-cypress.git'
+                                    bat 'npm install'
+                                    bat 'npm update'
+                                    bat "npm run cy:runFunctionalTestAndCyDashboard"
+
+                                }
+                                    
                             }
                         }
                     }
-                }
-            }
-        }
-    }
+                }           
 }
+
 
